@@ -4,7 +4,7 @@ var router = express.Router();
 var path = require('path');
 var util = require('../util/utils.js');
 var child_process = require('child_process');
-
+var config = require('../config/index.js');
 
 router.post('/', async (req, res)=>{
     let isSuccess = false,
@@ -30,11 +30,11 @@ router.post('/', async (req, res)=>{
     await p.then(({status,originalname,name})=>{
         isSuccess = status;
         data = {
-            zip:`/zip/${originalname}`,
-            config:`/config/${name}/config.json`,
-            source:`/source/${originalname}`,
-            designConfig:`/unzip/${name}/selection.json`,
-            css:`/dist/${name}/iconfont.css`,
+            zip:`${config.HOST}/zip/${originalname}`,
+            config:`${config.HOST}/config/${name}/config.json`,
+            source:`${config.HOST}/source/${originalname}`,
+            designConfig:`${config.HOST}/unzip/${name}/selection.json`,
+            css:`${config.HOST}/dist/${name}/iconfont.css`,
         }
     })
     res.send({
