@@ -8,7 +8,7 @@ Thumbs.db
 .vscode/
 zip/
 upzip/
-config/
+public/config/
 dist/
 interim/
 deploy.js
