@@ -7,7 +7,7 @@ Thumbs.db
 .DS_Store
 .vscode/
 zip/
-upzip/
+unzip/
 public/config/
 dist/
 interim/
