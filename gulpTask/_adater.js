@@ -17,6 +17,24 @@ function adapter(data,option){
     }
     return result;
 }
+function translace16to10(str){
+    let code = str.replace(/\\/g,''),
+        list = code.split(''),
+        length = list.length,
+        group = {
+            'a':10,
+            'b':11,
+            'c':12,
+            'd':13,
+            'e':14,
+            'f':15
+        },
+        result = 0;
+    list.forEach((item,index)=>{
+        result += parseInt(group[item] || item) * Math.pow(16,length-1-index);
+    });
+    return result;
+}
 function formatIcon(data,opt){
     let newData = adapter(data,{
         name:"properties.name",
@@ -64,9 +82,11 @@ function formatCss2JsonData(rules){
             if(!result.prefix){
                 result.prefix = `${((item.selectors[0].split('-'))[0])}`.replace(/^\./,'');
             }
+            let content = `${item.declarations[0].value}`.replace(/[\'\"]/g,'');
             result.list.push({
                 className:`${item.selectors[0]}`.replace(/:+before$/,'').replace(/^\./,''),
-                content:`${item.declarations[0].value}`.replace(/[\'\"]/g,'')
+                content,
+                htmlContent:`&#${translace16to10(content)};`
             });
         }
     })

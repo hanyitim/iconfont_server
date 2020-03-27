@@ -6,7 +6,7 @@ var util = require('../util/utils.js');
 var child_process = require('child_process');
 var config = require('../config/index.js');
 
-router.post('/', async (req, res)=>{
+router.post('/', (req, res)=>{
     let isSuccess = false,
         {file} = req,
         {name} = req.body,
@@ -27,7 +27,7 @@ router.post('/', async (req, res)=>{
             resolve({status:false});
         }
     })
-    await p.then(({status,originalname,name})=>{
+    p.then(({status,originalname,name})=>{
         isSuccess = status;
         data = {
             zip:`${config.HOST}/zip/${originalname}`,
@@ -36,11 +36,16 @@ router.post('/', async (req, res)=>{
             designConfig:`${config.HOST}/unzip/${name}/selection.json`,
             css:`${config.HOST}/dist/${name}/iconfont.css`,
         }
+        res.send({
+            rcode: isSuccess ? 0 : -1,
+            data
+        });
+    }).catch((e)=>{
+        res.send({
+            rcode: -1,
+            error:e
+        });
     })
-    res.send({
-        rcode: isSuccess ? 0 : -1,
-        data
-    });
 });
 
 module.exports = router;
