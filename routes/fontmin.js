@@ -11,8 +11,8 @@ router.route('').post(function(req,res){
         jsonPath = unit.pathInterim(`${fileName}.json`);
     try{
         fs.writeFileSync(jsonPath,json,{encoding:'utf-8'});
-        // child_process.execSync(`gulp fontmin --prefix ${prefix} --fontName ${fontName} --fileName ${fileName}`,{cwd:__dirname});
-        child_process.execSync(`gulp fontmin --prefix ${prefix} --fontName ${fontName} --fileName ${fileName}`);
+        child_process.execSync(`gulp fontmin --prefix ${prefix} --fontName ${fontName} --fileName ${fileName}`,{cwd:__dirname});
+        // child_process.execSync(`gulp fontmin --prefix ${prefix} --fontName ${fontName} --fileName ${fileName}`);
         res.send({rcode:0,zip:`${config.HOST}/zip/${fileName}.zip`});
     }catch(e){
         console.log(e);
