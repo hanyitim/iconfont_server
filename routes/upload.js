@@ -30,9 +30,9 @@ router.post('/', (req, res)=>{
     p.then(({status,originalname,name})=>{
         isSuccess = status;
         data = {
-            zip:`${config.HOST}/zip/${originalname}`,
+            zip:`${config.HOST}/zip/${name}.zip`,
             config:`${config.HOST}/config/${name}/config.json`,
-            source:`${config.HOST}/source/${originalname}`,
+            source:`${config.HOST}/source/${name}.zip`,
             designConfig:`${config.HOST}/unzip/${name}/selection.json`,
             css:`${config.HOST}/dist/${name}/iconfont.css`,
         }
